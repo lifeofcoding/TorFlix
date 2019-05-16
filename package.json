@@ -1,144 +1,145 @@
 {
-  "name": "TorFlix",
-  "version": "0.0.1",
-  "description": "Movie streaming app with stuning UI inspired by Popcorn Time",
-  "main": "index.js",
-  "scripts": {
-    "postinstall": "electron-builder install-app-deps",
-	"lint": "tsc && xo && stylelint 'css/*.css'",
-	"test": "npm run lint",
-	"start": "tsc && electron .",
-	"pack": "tsc && electron-builder --dir",
-	"dist": "tsc && electron-builder --macos --linux --windows",
-	"release": "np --no-publish && npm run publish-snap",
-	"publish-snap": "del dist && tsc && electron-builder --linux && snapcraft push --release=stable dist/*.snap"
+ "name": "TorFlix",
+ "version": "0.0.1",
+ "description": "Movie streaming app with stuning UI inspired by Popcorn Time",
+ "main": "index.js",
+ "scripts": {
+  "postinstall": "electron-builder install-app-deps",
+  "test": "npm run lint",
+  "start": "electron .",
+  "pack": "electron-builder --dir",
+  "dist": "electron-builder --macos --linux --windows",
+  "release": "np --no-publish && npm run publish-snap",
+  "publish-snap": "del dist && electron-builder --linux && snapcraft push --release=stable dist/*.snap"
+ },
+ "repository": {
+  "type": "git",
+  "url": "git@github.com:lifeofcoding/TorFlix.git"
+ },
+ "author": {
+  "name": "Jimmy Rousseau",
+  "email": "lifeofcoding@gmail.com",
+  "url": "lifeofcoding.online"
+ },
+ "license": "MIT",
+ "homepage": "http://www.HXCNetwork.com",
+ "dependencies": {
+  "@sentry/browser": "^5.1.1",
+  "@sentry/node": "^5.1.0",
+  "axios": "^0.9.1",
+  "classnames": "^2.2.5",
+  "electron-titlebar-windows": "^3.0.0",
+  "express": "^4.13.4",
+  "eztv-api-pt": "^1.3.1",
+  "geoip-lite": "^1.3.7",
+  "getport": "^0.1.0",
+  "is-heroku": "^2.0.0",
+  "lodash": "^4.17.11",
+  "magic.css": "^1.4.1",
+  "mediaelement": "^4.2.9",
+  "moment": "^2.12.0",
+  "mongodb": "^3.2.3",
+  "parse-torrent": "^5.9.1",
+  "peerflix": "^0.39.0",
+  "pingmydyno": "^1.5.1",
+  "react": "^0.14.8",
+  "react-autosuggest": "^3.7.4",
+  "react-blur-admin": "^0.10.0",
+  "react-dom": "^0.14.8",
+  "react-flex-proto": "^1.0.0",
+  "react-gl-maps": "git+https://github.com/knledg/react-gl-maps.git",
+  "react-google-login": "^5.0.4",
+  "react-router": "^2.0.1",
+  "react-tap-event-plugin": "^0.2.2",
+  "socket.io": "^1.7.4",
+  "socks5-http-client": "^1.0.4",
+  "spotify-web-api-node": "^4.0.0",
+  "yts-api-pt": "^2.0.0"
+ },
+ "devDependencies": {
+  "babel-core": "^6.7.4",
+  "babel-eslint": "^6.0.2",
+  "babel-loader": "^6.2.4",
+  "babel-plugin-react-transform": "^2.0.2",
+  "babel-polyfill": "^6.7.4",
+  "babel-preset-es2015": "^6.6.0",
+  "babel-preset-react": "^6.5.0",
+  "babel-preset-react-hmre": "^1.1.1",
+  "babel-preset-stage-0": "^6.5.0",
+  "babel-register": "^6.11.6",
+  "babel-runtime": "^6.6.1",
+  "css-loader": "^0.23.1",
+  "electron-builder": "^20.40.2",
+  "electron-debug": "^3.0.0",
+  "eslint": "^2.6.0",
+  "eslint-plugin-react": "^4.2.3",
+  "expect": "^1.16.0",
+  "express": "^4.16.4",
+  "extract-text-webpack-plugin": "^1.0.1",
+  "file-loader": "^0.8.5",
+  "html-loader": "^0.4.3",
+  "html-webpack-plugin": "^2.15.0",
+  "jsdom": "^9.4.1",
+  "mocha": "^2.4.5",
+  "node-sass": "^3.4.2",
+  "postcss-loader": "^0.8.2",
+  "raw-loader": "^0.5.1",
+  "react-addons-test-utils": "^0.14.8",
+  "react-transform-catch-errors": "^1.0.2",
+  "react-transform-hmr": "^1.0.4",
+  "redbox-react": "^1.2.2",
+  "rimraf": "^2.5.2",
+  "sass-loader": "^3.2.0",
+  "style-loader": "^0.13.2",
+  "url-loader": "^0.5.7",
+  "webpack": "^1.12.14",
+  "webpack-dev-middleware": "^1.6.1",
+  "webpack-dev-server": "^1.14.1",
+  "webpack-hot-middleware": "^2.10.0"
+ },
+ "build": {
+  "files": [
+   "**/*",
+   "!media${/*}"
+  ],
+  "appId": "com.lifeofcoding.JewFlix",
+  "mac": {
+   "category": "public.app-category.entertainment",
+   "electronUpdaterCompatibility": ">=2.15.0",
+   "darkModeSupport": true
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:lifeofcoding/TorFlix.git"
+  "dmg": {
+   "iconSize": 160,
+   "contents": [
+    {
+     "x": 180,
+     "y": 170
+    },
+    {
+     "x": 480,
+     "y": 170,
+     "type": "link",
+     "path": "/Applications"
+    }
+   ]
   },
-  "author": {
-     "name": "Jimmy Rousseau",
-     "email": "lifeofcoding@gmail.com",
-	 "url": "lifeofcoding.online"
-   },
-  "license": "MIT",
-  "homepage": "http://www.HXCNetwork.com",
-  "dependencies": {
-    "@sentry/browser": "^5.1.1",
-    "@sentry/node": "^5.1.0",
-    "axios": "^0.9.1",
-    "classnames": "^2.2.5",
-    "electron-titlebar-windows": "^3.0.0",
-    "express": "^4.13.4",
-    "eztv-api-pt": "^1.3.1",
-    "geoip-lite": "^1.3.7",
-    "getport": "^0.1.0",
-    "is-heroku": "^2.0.0",
-    "lodash": "^4.17.11",
-    "magic.css": "^1.4.1",
-    "mediaelement": "^4.2.9",
-    "moment": "^2.12.0",
-    "mongodb": "^3.2.3",
-    "parse-torrent": "^5.9.1",
-    "peerflix": "^0.39.0",
-    "pingmydyno": "^1.5.1",
-    "react": "^0.14.8",
-    "react-autosuggest": "^3.7.4",
-    "react-blur-admin": "^0.10.0",
-    "react-dom": "^0.14.8",
-    "react-flex-proto": "^1.0.0",
-    "react-gl-maps": "git+https://github.com/knledg/react-gl-maps.git",
-    "react-google-login": "^5.0.4",
-    "react-router": "^2.0.1",
-    "react-tap-event-plugin": "^0.2.2",
-    "socket.io": "^1.7.4",
-    "spotify-web-api-node": "^4.0.0",
-    "yts-api-pt": "^2.0.0"
+  "linux": {
+   "target": [
+    "AppImage",
+    "deb",
+    "snap"
+   ],
+   "synopsis": "Movie streaming",
+   "description": "Stream movies in a beautiful UI inspired by Popcorn Time",
+   "category": "entertainment"
   },
-  "devDependencies": {
-    "electron-builder": "^20.40.2",
-    "babel-core": "^6.7.4",
-    "babel-eslint": "^6.0.2",
-    "babel-loader": "^6.2.4",
-    "babel-plugin-react-transform": "^2.0.2",
-    "babel-polyfill": "^6.7.4",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-react-hmre": "^1.1.1",
-    "babel-preset-stage-0": "^6.5.0",
-    "babel-register": "^6.11.6",
-    "babel-runtime": "^6.6.1",
-    "css-loader": "^0.23.1",
-    "eslint": "^2.6.0",
-    "eslint-plugin-react": "^4.2.3",
-    "expect": "^1.16.0",
-    "express": "^4.16.4",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.8.5",
-    "html-loader": "^0.4.3",
-    "html-webpack-plugin": "^2.15.0",
-    "jsdom": "^9.4.1",
-    "mocha": "^2.4.5",
-    "node-sass": "^3.4.2",
-    "postcss-loader": "^0.8.2",
-    "raw-loader": "^0.5.1",
-    "react-addons-test-utils": "^0.14.8",
-    "react-transform-catch-errors": "^1.0.2",
-    "react-transform-hmr": "^1.0.4",
-    "redbox-react": "^1.2.2",
-    "rimraf": "^2.5.2",
-    "sass-loader": "^3.2.0",
-    "style-loader": "^0.13.2",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.12.14",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.10.0"
+  "snap": {
+   "plugs": [
+    "default"
+   ]
   },
-  "build": {
-		"files": [
-			"**/*",
-			"!media${/*}"
-		],
-		"appId": "com.lifeofcoding.JewFlix",
-		"mac": {
-			"category": "public.app-category.entertainment",
-			"electronUpdaterCompatibility": ">=2.15.0",
-			"darkModeSupport": true
-		},
-		"dmg": {
-			"iconSize": 160,
-			"contents": [
-				{
-					"x": 180,
-					"y": 170
-				},
-				{
-					"x": 480,
-					"y": 170,
-					"type": "link",
-					"path": "/Applications"
-				}
-			]
-		},
-		"linux": {
-			"target": [
-				"AppImage",
-				"deb",
-				"snap"
-			],
-			"synopsis": "Movie streaming",
-			"description": "Stream movies in a beautiful UI inspired by Popcorn Time",
-			"category": "entertainment"
-		},
-		"snap": {
-			"plugs": [
-				"default"
-			]
-		},
-		"win": {
-			"verifyUpdateCodeSignature": false
-		}
-	}
+  "win": {
+   "verifyUpdateCodeSignature": false
+  }
+ }
 }

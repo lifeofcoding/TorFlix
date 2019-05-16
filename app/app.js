@@ -5,9 +5,37 @@ var io = require('socket.io')(server);
 var getport = require('getport');
 var spawn = require('child_process').spawn;
 var parseTorrent = require('parse-torrent');
+var path = require('path');
+var request = require('request');
+var Agent = require('socks5-http-client/lib/Agent');
+var axios = require('axios');
+var _ = require('lodash');
 
 var processes = {}; // Peerflix processes
 var users = 0;
+
+app.all('/stream', (req, res) => {
+ axios.get('http://hxcnetwork.com/api/proxies')
+  .then(function (response) {
+    // handle success
+    console.log(response);
+    var proxies = response.data.proxies;
+    var selected = proxies[_.random(0, proxies.length - 1)];
+    proxy = `${selected.type}://${selected.address}:${selected.port}`;
+
+     var options = {
+      url: "http://127.0.0.1:2000",
+        agentClass: Agent,
+        agentOptions: {
+            socksHost: selected.address,
+            socksPort: selected.port
+        }
+     }
+    console.log('Proxying stream:')
+    console.log(options)
+    request(options).pipe(res); 
+  });
+})
 
 server.listen(3000, function () {
   console.log('app listening on port 3000!');
@@ -80,7 +108,7 @@ io.on('connection', function (socket) {
       if (err) console.log(err);
 
       var process = {};
-      var child = spawn('peerflix', [torrent, '--port='+ port, '--tmp=./tmp', '--remove'], {});
+      var child = spawn('./peerflix', [torrent, '--port='+ port, '--tmp=./tmp', '--remove'], {});
       process.child = child;
       process.port = port;
       process.spectators = 0;

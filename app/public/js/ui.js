@@ -517,7 +517,7 @@ var ui = {
 		show:function(port){
 
 			var slider = new ui.slider('player','fadein');
-			slider.el.append('<video id="video_player" class="video-js vjs-default-skin vjs-big-play-centered" width="100%" height="100%"><source src="http://localhost:' + port + '" type="video/mp4" /></video>')
+      slider.el.append('<video id="video_player" class="video-js vjs-default-skin vjs-big-play-centered" width="100%" height="100%"><source src="http://127.0.0.1:3000/stream" type="video/mp4" /></video>')
 
 			var Player = videojs(document.getElementById('video_player'), {
 					"controls": true, "autoplay": true, "preload": "auto", plugins: { biggerSubtitles: {}, smallerSubtitles: {}, customSubtitles:{} }

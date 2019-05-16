@@ -1,7 +1,13 @@
-const {app, BrowserWindow, ipcMain, session} = require('electron');
+const {app, BrowserWindow, ipcMain, session, protocol} = require('electron');
 const {exec, fork} = require('child_process');
 const axios = require('axios');
 const _ = require('lodash');
+const debug = require('electron-debug');
+const request = require('request');
+const Agent = require('socks5-http-client/lib/Agent');
+
+
+debug();
 
 var path = require('path');
 
@@ -13,6 +19,7 @@ app.on('ready', () => {
     var devServerProc = exec('node ./app/app.js');
 
 // Make a request for a user with a given ID
+/*
 axios.get('http://hxcnetwork.com/api/proxies')
   .then(function (response) {
     // handle success
@@ -20,16 +27,31 @@ axios.get('http://hxcnetwork.com/api/proxies')
     var proxies = response.data.proxies;
     var selected = proxies[_.random(0, proxies.length - 1)];
     proxy = `${selected.type}://${selected.address}:${selected.port}`;
-    let config = {proxyRules: proxy};
-    session
-      .fromPartition('persist:webviewsession')
-      .setProxy(config, function() {
-        console.log('using the proxy  ' + proxy);
-        //Bus.emit('vpn:selected');
-        //mainWindow.loadURL('file://' + require('path').join(__dirname, 'browser.html'))
-      });
+
+    //let config = {proxyRules: proxy};
+
+
+protocol.interceptHttpProtocol("http", (req, callback) => {
+  if (req.url === "http://127.0.0.1:2000") {
+    var options = {
+      url: "http://127.0.0.1:2000",
+        agentClass: Agent,
+        agentOptions: {
+            socksHost: selected.address,
+            socksPort: selected.port
+        }
+    }
+    console.log('Proxying streaming');
+    console.log(options)
+    return callback(request(options).pipe(callback));
+  } else {
+    return callback({cancel: false, redirectUrl: false});
+  }
+});
+
   })
 
+*/
 
   //exec('node ./app/server.js');
   console.log('creating window');
@@ -88,7 +110,7 @@ axios.get('http://hxcnetwork.com/api/proxies')
       //win.webContents.send('render', 'whoooooooh!');
       //ipcMain.emit('render');
       if (DEBUG) {
-        win.webContents.openDevTools();
+        //        win.webContents.openDevTools();
       }
     }
   });
