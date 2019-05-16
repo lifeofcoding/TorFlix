@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain} = require('electron');
+const {app, BrowserWindow, ipcMain, session} = require('electron');
 const {exec, fork} = require('child_process');
 const axios = require('axios');
 const _ = require('lodash');
@@ -17,9 +17,17 @@ axios.get('http://hxcnetwork.com/api/proxies')
   .then(function (response) {
     // handle success
     console.log(response);
-    var proxies = response.proxies;
-    var selected = proxies[_.rand(0, proxies.length - 1)];
-	proxy = `${selected.type}://${selected.address}:${selected.port}`;
+    var proxies = response.data.proxies;
+    var selected = proxies[_.random(0, proxies.length - 1)];
+    proxy = `${selected.type}://${selected.address}:${selected.port}`;
+    let config = {proxyRules: proxy};
+    session
+      .fromPartition('persist:webviewsession')
+      .setProxy(config, function() {
+        console.log('using the proxy  ' + proxy);
+        //Bus.emit('vpn:selected');
+        //mainWindow.loadURL('file://' + require('path').join(__dirname, 'browser.html'))
+      });
   })
 
 
