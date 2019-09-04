@@ -1,0 +1,7 @@
+{
+  "appId": "com.hxc.torflix",
+  "appName": "TorFlix",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "app/public"
+}

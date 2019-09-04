@@ -24,6 +24,9 @@
  "license": "MIT",
  "homepage": "http://www.HXCNetwork.com",
  "dependencies": {
+  "@capacitor/android": "^1.1.1",
+  "@capacitor/cli": "^1.1.1",
+  "@capacitor/core": "^1.1.1",
   "@sentry/browser": "^5.1.1",
   "@sentry/node": "^5.1.0",
   "axios": "^0.9.1",
