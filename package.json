@@ -54,7 +54,7 @@
   "react-google-login": "^5.0.4",
   "react-router": "^2.0.1",
   "react-tap-event-plugin": "^0.2.2",
-  "socket.io": "^1.7.4",
+  "socket.io": "^4.5.3",
   "socks5-http-client": "^1.0.4",
   "spotify-web-api-node": "^4.0.0",
   "yts-api-pt": "^2.0.0"
